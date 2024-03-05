@@ -1,0 +1,19 @@
+{
+  "name": "test-jenkins",
+  "version": "1.0.0",
+  "description": "This is a test repo to test the continous integration jenkins tool",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app/server.js",
+    "dev": "nodemon app/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
