@@ -1,8 +1,7 @@
-CODE_CHANGES= getGitChanges()
 pipeline {
     agent any
     environment {
-        NEW_VERSION='1.3.0'
+        NEW_VERSION = '1.3.0'
         // SERVER_CREDENTIALS = credentials('jenkins-credentials')
     }
     tools {
@@ -13,30 +12,26 @@ pipeline {
         booleanParam(name: 'executeTests', defaultValue: true, description: '')
         string(name: 'NAME', defaultValue: 'test', description: '')
         text(name: 'DESCRIPTION', defaultValue: 'test', description: '')
-
-
     }
     
     stages {
         stage('build') {
-              when:{
+            when {
                 expression {
-                    BRANCH_NAME == 'dev' && CODE_CHANGES == true
+                    BRANCH_NAME == 'dev' && env.CODE_CHANGES == true
                 }
-
-            },
+            }
             steps {
                 echo 'building the application'
-                echo "building the application version ${NEW_VERSION}" 
+                echo "building the application version ${env.NEW_VERSION}" 
             }
         }
         stage('test') {
-            when:{
+            when {
                 expression {
                     BRANCH_NAME == 'dev' && params.executeTests == true
                 }
-
-            },
+            }
             steps {
                 echo 'testing'
             }
@@ -52,14 +47,14 @@ pipeline {
             }
         }
     }
-    post:{
-        always{
+    post {
+        always {
             echo 'this will always run'
         }
-        success{
+        success {
             echo 'this will run only if successful'
         }
-        failure{
+        failure {
             echo 'this will run only if failed'
         }
     }
