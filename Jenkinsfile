@@ -1,3 +1,4 @@
+def gv
 pipeline {
     agent any
     environment {
@@ -13,15 +14,25 @@ pipeline {
     }
     
     stages {
+        stage("init") {
+            steps {
+                script {
+                    gv = load "script.groovy"
+                }
+            }
+        }
         stage('build') {
-            when {
+            when { 
                 expression {
                     BRANCH_NAME == 'dev' && env.CODE_CHANGES == true
                 }
             }
             steps {
-                echo 'building the application'
-                echo "building the application version ${env.NEW_VERSION}" 
+                // echo 'building the application'
+                // echo "building the application version ${env.NEW_VERSION}" 
+                script {
+                    gv.buildApp()
+                }
             }
         }
         stage('test') {
@@ -31,16 +42,22 @@ pipeline {
                 }
             }
             steps {
-                echo 'testing'
+                // echo 'testing'
+                script {
+                    gv.testApp()
+                }
             }
         }
         stage('deploy') {
             steps {
-                echo 'deploying the application '
-                echo "deploying the application version ${params.VERSION}"
-                withCredentials([usernamePassword(credentialsId: 'server-test-credentials',
-                 usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh 'echo ${USERNAME} ${PASSWORD}'
+                // echo 'deploying the application '
+                // echo "deploying the application version ${params.VERSION}"
+                // withCredentials([usernamePassword(credentialsId: 'server-test-credentials',
+                //  usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                //     sh 'echo ${USERNAME} ${PASSWORD}'
+                // }
+                script {
+                    gv.deployApp()
                 }
             }
         }
