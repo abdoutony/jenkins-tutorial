@@ -38,7 +38,7 @@ pipeline {
         stage('test') {
             when {
                 expression {
-                    BRANCH_NAME == 'dev' && params.executeTests == true
+                   params.executeTests == true
                 }
             }
             steps {
