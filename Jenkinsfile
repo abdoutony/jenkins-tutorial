@@ -5,7 +5,7 @@ pipeline {
         // SERVER_CREDENTIALS = credentials('jenkins-credentials')
     }
     tools {
-        maven 'maven' 
+        maven 'null' 
     }
     parameters {
         choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
