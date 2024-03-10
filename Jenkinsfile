@@ -24,7 +24,7 @@ pipeline {
                     BRANCH_NAME == 'dev' && CODE_CHANGES == true
                 }
 
-            }
+            },
             steps {
                 echo 'building the application'
                 echo "building the application version ${NEW_VERSION}" 
@@ -36,7 +36,7 @@ pipeline {
                     BRANCH_NAME == 'dev' && params.executeTests == true
                 }
 
-            }
+            },
             steps {
                 echo 'testing'
             }
